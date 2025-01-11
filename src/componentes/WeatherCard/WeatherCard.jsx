@@ -30,7 +30,7 @@ const WeatherCard = () => {
     const regionNames = new Intl.DisplayNames(['es'], { type: 'region' });
     try {
       return regionNames.of(countryCode);
-    } catch (error) {
+    } catch  {
       return countryCode;
     }
   };
@@ -202,6 +202,16 @@ const WeatherCard = () => {
                 <span>Temperatura 🌡️</span>
                 <p>Máx: {formatTemp(weatherData.main.temp_max)} ⬆️</p>
                 <p>Mín: {formatTemp(weatherData.main.temp_min)} ⬇️</p>
+              </div>
+              <div className="stat">
+                <span>Nubes ☁️</span>
+                <p>{weatherData.clouds.all}%</p>
+                <p>Cobertura</p>
+              </div>
+              <div className="stat">
+                <span>Presión 📊</span>
+                <p>{weatherData.main.pressure} hPa</p>
+                <p>Atmosférica</p>
               </div>
             </div>
           </div>
