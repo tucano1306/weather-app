@@ -71,7 +71,7 @@
     }
   }
   
-  /* Media Queries */
+  
   @media (max-width: 480px) {
     .loading-container {
       min-height: 150px;

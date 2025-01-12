@@ -24,9 +24,9 @@ export const getWeatherBackground = (weatherCode) => {
     return backgrounds[mainCode] || backgrounds.default;
   };
   
-  // Función para obtener el color del texto basado en el fondo
+  
   export const getTextColor = (weatherCode) => {
-    const darkBackgrounds = [2, 5]; // Códigos de clima con fondos oscuros
+    const darkBackgrounds = [2, 5]; 
     const mainCode = Math.floor(weatherCode / 100);
     
     return darkBackgrounds.includes(mainCode) ? '#ffffff' : '#333333';
