@@ -1,4 +1,4 @@
-/* Reset básico y estilos globales */
+
 * {
     margin: 0;
     padding: 0;
@@ -17,14 +17,14 @@
     padding: 2rem;
   }
   
-  /* Estilos del contenedor principal del clima */
+  
   .weather-container {
     max-width: 600px;
     margin: 0 auto;
     padding: 1rem;
   }
   
-  /* Estilos para la tarjeta del clima */
+  
   .weather-card {
     background: rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(10px);
@@ -59,7 +59,7 @@
     text-transform: capitalize;
   }
   
-  /* Estilos para los detalles del clima */
+  
   .weather-details {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -87,7 +87,7 @@
     font-weight: bold;
   }
   
-  /* Estilos para estados de carga y error */
+  
   .weather-loading {
     text-align: center;
     padding: 2rem;
@@ -117,7 +117,7 @@
     margin-top: 2rem;
   }
   
-  /* Estilos responsivos */
+  
   @media (max-width: 480px) {
     .app {
       padding: 1rem;
@@ -140,8 +140,8 @@
       gap: 1rem;
     }
   }
+
   
-  /* Estilos del formulario de búsqueda */
   .search-container {
     width: 100%;
     max-width: 400px;

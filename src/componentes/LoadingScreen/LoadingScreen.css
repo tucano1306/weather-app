@@ -74,7 +74,7 @@
     }
   }
   
-  /* Media queries para responsividad */
+  
   @media (max-width: 480px) {
     .loading-message {
       font-size: 1rem;

@@ -14,7 +14,7 @@ const useWeather = () => {
     try {
       setLoading(true);
       
-      // Obtener datos del clima actual
+      
       const response = await fetch(
         `${WEATHER_URL}?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=metric&lang=es`
       );
@@ -24,7 +24,7 @@ const useWeather = () => {
       const data = await response.json();
       setWeatherData(data);
 
-      // Obtener pronóstico
+      
       const forecastResponse = await fetch(
         `${FORECAST_URL}?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=metric&lang=es`
       );
@@ -61,16 +61,16 @@ const useWeather = () => {
   useEffect(() => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
-        // Éxito en obtener ubicación
+        
         (position) => {
           fetchWeatherData(position.coords.latitude, position.coords.longitude);
         },
-        // Error al obtener ubicación
+        
         () => {
           setError('No se pudo acceder a tu ubicación. Por favor, permite el acceso a la ubicación en tu navegador.');
           setLoading(false);
         },
-        // Opciones de geolocalización
+        
         {
           enableHighAccuracy: true,
           timeout: 5000,

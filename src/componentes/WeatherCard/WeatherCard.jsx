@@ -22,15 +22,36 @@ ErrorMessage.propTypes = {
   message: PropTypes.string.isRequired
 };
 
-const WeatherCard = () => {
+function WeatherCard() {
   const { weatherData, loading, error, fetchWeatherByCity } = useWeather();
   const [isCelsius, setIsCelsius] = useState(true);
+
+  const getLocationTime = (timezone) => {
+    const locationOffset = timezone * 1000;
+    const now = new Date();
+    const localOffset = now.getTimezoneOffset() * 60 * 1000;
+    const locationTime = new Date(now.getTime() + localOffset + locationOffset);
+    
+    return {
+      time: locationTime.toLocaleTimeString('es', {
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: true
+      }),
+      date: locationTime.toLocaleDateString('es', {
+        weekday: 'short',
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric'
+      })
+    };
+  };
 
   const getCountryName = (countryCode) => {
     const regionNames = new Intl.DisplayNames(['es'], { type: 'region' });
     try {
       return regionNames.of(countryCode);
-    } catch  {
+    } catch {
       return countryCode;
     }
   };
@@ -67,54 +88,36 @@ const WeatherCard = () => {
 
   const getWeatherEmoji = (weatherCode) => {
     const code = String(weatherCode);
+    const isDay = isDayTime();
 
     switch (code[0]) {
-      case '2': return '⛈️';
-      case '3': return '🌦️';
-      case '5': return '🌧️';
-      case '6': return '❄️';
+      case '2': return '⛈️';  
+      case '3': return isDay ? '🌦️' : '🌧️';  
+      case '5': return isDay ? '🌧️' : '🌧️';  
+      case '6': return '❄️';  
       case '7':
         switch (code) {
-          case '701': return '🌫️';
-          case '711': return '💨';
-          case '721': return '🌫️';
-          case '731': return '🌪️';
-          case '741': return '🌫️';
-          case '751': return '🌪️';
-          case '761': return '🌫️';
-          case '762': return '🌋';
-          case '771': return '🌪️';
-          case '781': return '🌪️';
-          default: return '🌫️';
+          case '701': return '🌫️';  
+          case '711': return '💨';   
+          case '721': return '🌫️';  
+          case '731': return '🌪️';  
+          case '741': return '🌫️';  
+          case '751': return '🌪️';  
+          case '761': return '🌫️';  
+          case '762': return '🌋';   
+          case '771': return '🌪️';  
+          case '781': return '🌪️';  
+          default: return isDay ? '🌫️' : '🌫️';
         }
       case '8':
-        if (code === '800') return isDayTime() ? '☀️' : '🌙';
-        if (code === '801') return '🌤️';
-        if (code === '802') return '⛅';
-        if (code === '803') return '🌥️';
-        return '☁️';
+        if (code === '800') return isDay ? '☀️' : '🌙';  
+        if (code === '801') return isDay ? '🌤️' : '🌑';  
+        if (code === '802') return isDay ? '⛅' : '☁️';   
+        if (code === '803') return isDay ? '🌥️' : '☁️';  
+        return isDay ? '☁️' : '☁️';  
       default:
-        return '🌡️';
+        return isDay ? '🌡️' : '🌡️';
     }
-  };
-
-  const formatTime = () => {
-    const now = new Date();
-    return now.toLocaleTimeString('es', { 
-      hour: '2-digit', 
-      minute: '2-digit',
-      hour12: true 
-    });
-  };
-
-  const formatDate = () => {
-    const now = new Date();
-    return now.toLocaleDateString('es', { 
-      weekday: 'short', 
-      day: '2-digit',
-      month: '2-digit',
-      year: 'numeric' 
-    });
   };
 
   const convertTemp = (temp) => {
@@ -144,7 +147,9 @@ const WeatherCard = () => {
           1. Verifica que el nombre de la ciudad esté bien escrito
           2. Intenta agregar el país (ejemplo: "París, Francia")
           3. Prueba con una ciudad más grande cercana`;
-        break;      
+        break;
+      default:
+        errorMessage = 'Ocurrió un error inesperado. Por favor intenta de nuevo.';
     }
     return <ErrorMessage message={errorMessage} />;
   }
@@ -153,6 +158,7 @@ const WeatherCard = () => {
 
   const weatherEmoji = getWeatherEmoji(weatherData.weather[0].id);
   const backgroundImage = getBackgroundImage();
+  const locationDateTime = getLocationTime(weatherData.timezone);
 
   return (
     <div 
@@ -177,8 +183,8 @@ const WeatherCard = () => {
               </button>
             </div>
             <div className="current-time">
-              <div className="date">{formatDate()} 📅</div>
-              <div className="time">{formatTime()} ⏰</div>
+              <div className="date">{locationDateTime.date} 📅</div>
+              <div className="time">{locationDateTime.time} ⏰</div>
             </div>
           </div>
 
@@ -219,6 +225,6 @@ const WeatherCard = () => {
       </div>
     </div>
   );
-};
+}
 
 export default WeatherCard;

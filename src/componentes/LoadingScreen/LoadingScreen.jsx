@@ -6,14 +6,14 @@ const LoadingScreen = ({ message = 'Cargando información del clima...' }) => {
     <div className="loading-screen">
       <div className="loading-content">
         <div className="loading-icon">
-          {/* Iconos animados del clima */}
+          {}
           <div className="weather-icons">
             <span>🌤️</span>
             <span>🌦️</span>
             <span>⛈️</span>
             <span>❄️</span>
           </div>
-          {/* Spinner de carga */}
+          {}
           <div className="loading-spinner"></div>
         </div>
         <p className="loading-message">{message}</p>
